@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="Happy Birthday Website 2.0 | Aoudumber Bade">
-    <meta name="github" content="https://github.com/Aoudumber-Bade">
+ 
     <title>Mummy Birthday</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -159,8 +159,13 @@ Stay happy and keep smiling 😌🌸
     </div>
 
     <!-- Hidden background music (loops). Note: browsers may block autoplay of unmuted audio -->
-    <audio id="bg-music" src="images/happy-birthday-357371.mp3" loop autoplay playsinline style="display:none;"></audio>
-
+   <audio id="bg-music"
+       src="images/happy-birthday-357371.mp3"
+       loop
+       autoplay
+       muted
+       playsinline
+       style="display:none;"></audio>
 </body>
 <script>
     let datetxt = "1st Jan";
@@ -249,7 +254,15 @@ Stay happy and keep smiling 😌🌸
         $(".letter__border").slideUp();
     })
 
-
+function tryUnmute() {
+    const bg = document.getElementById('bg-music');
+    if (bg && bg.muted) {
+        bg.muted = false;
+        bg.play().catch(()=>{}); // best-effort
+    }
+    document.removeEventListener('pointerdown', tryUnmute);
+}
+document.addEventListener('pointerdown', tryUnmute, {passive:true});
 
     let mailBox = document.querySelector('.mail')
     let boxmail = document.querySelector('.boxMail')
@@ -263,6 +276,5 @@ Stay happy and keep smiling 😌🌸
         boxmail.classList.remove('active')
     })
 </script>
-
 
 </html>
